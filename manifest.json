@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "HH Video Downloader",
+  "version": "1.0",
+  "description": "Download videos detected on web pages.",
+  "permissions": [
+    "activeTab",
+    "webRequest",
+    "downloads",
+    "storage",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "vendor/ffmpeg/*",
+        "vendor/ffmpeg-core/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "cross_origin_embedder_policy": {
+    "value": "require-corp"
+  },
+  "cross_origin_opener_policy": {
+    "value": "same-origin"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Video Downloader"
+  }
+}
+
+
